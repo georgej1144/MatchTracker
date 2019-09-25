@@ -75,7 +75,7 @@ class Calc {
 		Field input;
 		input = (Field) Field.deepClone(start);
 		assert input != null;
-		deltaCache.clear();
+		this.deltaCache.clear();
 		preCalcScore = input.currentScore();
 		deltaCache.add(input);
 		for(int i = 0; i < Math.pow(12, n-1); i++) {
@@ -93,8 +93,5 @@ class Calc {
 			deltaCache.add(input.swapOrangeTowerGreen(deltaCache.get(i)));
 			input = deltaCache.get(i);
 		}
-		/*for(int i = 0; i < deltaCache.size() - Math.pow(12, n-1); i++) {
-			deltaCache.remove(1);
-		}*/
 	}
 }

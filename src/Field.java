@@ -8,26 +8,9 @@ class Field implements Cloneable, Serializable {
     int[] orange = {0, 0, 0, 22};
     ArrayList<String> lastMove = new ArrayList<>();
 
-    //private static int[] initializeArr = {0, 0, 0, 22};
-
     Field() {
         lastMove.add("");
     }
-
-    /*
-    private Field(int[] gr, int[] pu, int[] or){
-        lastMove.add("");
-        green = gr;
-        purple = pu;
-        orange = or;
-    }*/
-
-    /*Field(Field source) {
-        green = source.green;
-        purple = source.green;
-        orange = source.orange;
-        lastMove = source.lastMove;
-    }*/
 
     static Object deepClone(Object object) {
         try {
@@ -37,8 +20,7 @@ class Field implements Cloneable, Serializable {
             ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
             ObjectInputStream ois = new ObjectInputStream(bais);
             return ois.readObject();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -46,29 +28,18 @@ class Field implements Cloneable, Serializable {
 
     @Override
     public Field clone() throws CloneNotSupportedException {
-        return (Field) super.clone();	// return shallow copy
+        return (Field) super.clone();    // return shallow copy
     }
-
-    /*
-    private Field cloneField() {
-        Field output = null;
-        try {
-            output = this.clone();
-        } catch (CloneNotSupportedException ex) {
-            ex.printStackTrace();
-        }
-        return output;
-    }*/
 
     Score currentScore() {
         Score output = new Score();
 
         output.Home = this.green[0] * (this.green[2] + 1);
-        output.Home += this.purple[0] * (this.purple[2] + 1);	//calculates total score of your team. each cube in tower increases points of same color cube in stack by 1
+        output.Home += this.purple[0] * (this.purple[2] + 1);    //calculates total score of your team. each cube in tower increases points of same color cube in stack by 1
         output.Home += this.orange[0] * (this.orange[2] + 1);
 
         output.Away = this.green[1] * (this.green[2] + 1);
-        output.Away += this.purple[1] * (this.purple[2] + 1);	//calculates total score of other team
+        output.Away += this.purple[1] * (this.purple[2] + 1);    //calculates total score of other team
         output.Away += this.orange[1] * (this.orange[2] + 1);
         return output;
     }
@@ -86,9 +57,9 @@ class Field implements Cloneable, Serializable {
     }
 
     void lastMoveDump() {
-        for(int i = 1; i < lastMove.size(); i++) {
+        for (int i = 1; i < lastMove.size(); i++) {
             System.out.print(lastMove.get(i));
-            if(!(i == lastMove.size() - 1)) System.out.print(", ");
+            if (!(i == lastMove.size() - 1)) System.out.print(", ");
 
         }
         System.out.println("\n");
@@ -106,9 +77,9 @@ class Field implements Cloneable, Serializable {
     Field addGreenStack(Field seed) {
         Field output;
         output = (Field) Field.deepClone(seed);
-        if(!lastMove.get(lastMove.size() - 1).equals("CLOSEg")) {
+        if (!lastMove.get(lastMove.size() - 1).equals("CLOSEg")) {
             assert output != null;
-            if(output.green[3] > 0) {
+            if (output.green[3] > 0) {
                 output.lastMove.add("Add Green Cube");
                 output.green[0] += 1;
                 output.green[3] -= 1;
@@ -123,9 +94,9 @@ class Field implements Cloneable, Serializable {
     Field addPurpleStack(Field seed) {
         Field output;
         output = (Field) Field.deepClone(seed);
-        if(!lastMove.get(lastMove.size() - 1).equals("CLOSEp")) {
+        if (!lastMove.get(lastMove.size() - 1).equals("CLOSEp")) {
             assert output != null;
-            if(output.purple[3] > 0) {
+            if (output.purple[3] > 0) {
                 output.lastMove.add("Add Purple Cube");
                 output.purple[0] += 1;
                 output.purple[3] -= 1;
@@ -140,9 +111,9 @@ class Field implements Cloneable, Serializable {
     Field addOrangeStack(Field seed) {
         Field output;
         output = (Field) Field.deepClone(seed);
-        if(!lastMove.get(lastMove.size() - 1).equals("CLOSEo")) {
+        if (!lastMove.get(lastMove.size() - 1).equals("CLOSEo")) {
             assert output != null;
-            if(output.orange[3] > 0) {
+            if (output.orange[3] > 0) {
                 output.lastMove.add("Add Orange Cube Stack");
                 output.orange[0] += 1;
                 output.orange[3] -= 1;
@@ -157,7 +128,7 @@ class Field implements Cloneable, Serializable {
     Field addGreenTower(Field seed) {
         Field output;
         output = (Field) Field.deepClone(seed);
-        if(!lastMove.get(lastMove.size() - 1).equals("CLOSEg")) {
+        if (!lastMove.get(lastMove.size() - 1).equals("CLOSEg")) {
             assert output != null;
             if (output.green[3] > 0) {
                 output.lastMove.add("Add Green Cube Tower");
@@ -174,9 +145,9 @@ class Field implements Cloneable, Serializable {
     Field addPurpleTower(Field seed) {
         Field output;
         output = (Field) Field.deepClone(seed);
-        if(!lastMove.get(lastMove.size() - 1).equals("CLOSEp")) {
+        if (!lastMove.get(lastMove.size() - 1).equals("CLOSEp")) {
             assert output != null;
-            if(output.purple[3] > 0) {
+            if (output.purple[3] > 0) {
                 output.lastMove.add("Add Purple Cube Tower");
                 output.purple[2] += 1;
                 output.purple[3] -= 1;
@@ -191,9 +162,9 @@ class Field implements Cloneable, Serializable {
     Field addOrangeTower(Field seed) {
         Field output;
         output = (Field) Field.deepClone(seed);
-        if(!lastMove.get(lastMove.size() - 1).equals("CLOSEo")) {
+        if (!lastMove.get(lastMove.size() - 1).equals("CLOSEo")) {
             assert output != null;
-            if(output.orange[3] > 0) {
+            if (output.orange[3] > 0) {
                 output.lastMove.add("Add Orange Cube Tower");
                 output.orange[2] += 1;
                 output.orange[3] -= 1;
@@ -208,7 +179,7 @@ class Field implements Cloneable, Serializable {
     Field swapGreenTowerOrange(Field seed) {
         Field output;
         output = (Field) Field.deepClone(seed);
-        if(!lastMove.get(lastMove.size() - 1).equals("CLOSEsgo")) {
+        if (!lastMove.get(lastMove.size() - 1).equals("CLOSEsgo")) {
             assert output != null;
             if (output.green[3] > 0 && output.orange[2] > 0) {
                 output.lastMove.add("Swap Green with Orange");
@@ -227,9 +198,9 @@ class Field implements Cloneable, Serializable {
     Field swapPurpleTowerOrange(Field seed) {
         Field output;
         output = (Field) Field.deepClone(seed);
-        if(!lastMove.get(lastMove.size() - 1).equals("CLOSEspo")) {
+        if (!lastMove.get(lastMove.size() - 1).equals("CLOSEspo")) {
             assert output != null;
-            if(output.purple[3] > 0 && output.orange[2] > 0) {
+            if (output.purple[3] > 0 && output.orange[2] > 0) {
                 output.lastMove.add("Swap Purple with Orange");
                 output.purple[2] += 1;
                 output.purple[3] -= 1;
@@ -246,9 +217,9 @@ class Field implements Cloneable, Serializable {
     Field swapOrangeTowerPurple(Field seed) {
         Field output;
         output = (Field) Field.deepClone(seed);
-        if(!lastMove.get(lastMove.size() - 1).equals("CLOSEsop")) {
+        if (!lastMove.get(lastMove.size() - 1).equals("CLOSEsop")) {
             assert output != null;
-            if(output.orange[3] > 0 && output.purple[2] > 0) {
+            if (output.orange[3] > 0 && output.purple[2] > 0) {
                 output.lastMove.add("Swap Orange with Purple");
                 output.orange[2] += 1;
                 output.orange[3] -= 1;
@@ -265,7 +236,7 @@ class Field implements Cloneable, Serializable {
     Field swapGreenTowerPurple(Field seed) {
         Field output;
         output = (Field) Field.deepClone(seed);
-        if(!lastMove.get(lastMove.size() - 1).equals("CLOSEsgp")) {
+        if (!lastMove.get(lastMove.size() - 1).equals("CLOSEsgp")) {
             assert output != null;
             if (output.green[3] > 0 && output.purple[2] > 0) {
                 output.lastMove.add("Swap Green with Purple");
@@ -284,9 +255,9 @@ class Field implements Cloneable, Serializable {
     Field swapPurpleTowerGreen(Field seed) {
         Field output;
         output = (Field) Field.deepClone(seed);
-        if(!lastMove.get(lastMove.size() - 1).equals("CLOSEspg")) {
+        if (!lastMove.get(lastMove.size() - 1).equals("CLOSEspg")) {
             assert output != null;
-            if(output.purple[3] > 0 && output.green[2] > 0) {
+            if (output.purple[3] > 0 && output.green[2] > 0) {
                 output.lastMove.add("Swap Purple with Green");
                 output.purple[2] += 1;
                 output.purple[3] -= 1;
@@ -303,9 +274,9 @@ class Field implements Cloneable, Serializable {
     Field swapOrangeTowerGreen(Field seed) {
         Field output;
         output = (Field) Field.deepClone(seed);
-        if(!lastMove.get(lastMove.size() - 1).equals("CLOSEsog")) {
+        if (!lastMove.get(lastMove.size() - 1).equals("CLOSEsog")) {
             assert output != null;
-            if(output.orange[3] > 0 && output.green[2] > 0) {
+            if (output.orange[3] > 0 && output.green[2] > 0) {
                 output.lastMove.add("Swap Orange with Green");
                 output.orange[2] += 1;
                 output.orange[3] -= 1;
@@ -318,59 +289,4 @@ class Field implements Cloneable, Serializable {
         }
         return output;
     }
-/*
-    int scoreDifference() {
-        Score output;
-        output = currentScore();
-        return output.difference();
-    }
-
-    int towersOccupied() {
-        return this.green[2] + this.purple[2] + this.orange[2];	//calculates how many towers have a cube in them
-    }
-
-    int greenCubeDiff() {
-        Score output = new Score();
-        int[] tGreen = {this.green[0] + 1, this.green[1], this.green[2], this.green[3]};
-        Field temp = new Field(tGreen, this.purple, this.orange);
-        output = temp.currentScore();
-        return output.difference();
-    }
-    int orangeCubeDiff() {
-        Score output = new Score();
-        int[] tOrange = {this.orange[0] + 1, this.orange[1], this.orange[2], this.orange[3]};
-        Field temp = new Field(this.green, this.purple, tOrange);
-        output = temp.currentScore();
-        return output.difference();
-    }
-    int purpleCubeDiff() {
-        Score output = new Score();
-        int[] tPurple = {this.purple[0] + 1, this.purple[1], this.purple[2], this.purple[3]};
-        Field temp = new Field(this.green, tPurple, this.orange);
-        output = temp.currentScore();
-        return output.difference();
-    }
-
-    int greenTowerDiff() {
-        Score output = new Score();
-        int[] tGreen = {this.green[0], this.green[1], this.green[2] + 1, this.green[3]};
-        Field temp = new Field(tGreen, this.purple, this.orange);
-        output = temp.currentScore();
-        return output.difference();
-    }
-    int orangeTowerDiff() {
-        Score output = new Score();
-        int[] tOrange = {this.orange[0], this.orange[1], this.orange[2] + 1, this.orange[3]};
-        Field temp = new Field(this.green, this.purple, tOrange);
-        output = temp.currentScore();
-        return output.difference();
-    }
-    int purpleTowerDiff() {
-        Score output = new Score();
-        int[] tPurple = {this.purple[0], this.purple[1], this.purple[2] + 1, this.purple[3]};
-        Field temp = new Field(this.green, tPurple, this.orange);
-        output = temp.currentScore();
-        return output.difference();
-    }*/
-
 }

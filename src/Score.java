@@ -10,15 +10,6 @@ class Score {
         System.out.println(String.format("Score difference: %d", this.difference()));
     }
 
-    /*
-    void printHome() {
-        System.out.print(this.Home + "\n");
-    }
-
-    void printAway() {
-        System.out.print(this.Away + "\n");
-    }
-*/
     int difference() {
         return Home - Away;
     }
